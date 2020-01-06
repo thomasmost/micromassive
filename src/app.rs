@@ -18,6 +18,7 @@ pub struct App {
     storage: StorageService,
     state: State,
     current_room: u8,
+    current_click: u64
 }
 
 #[derive(Serialize, Deserialize)]
@@ -36,6 +37,9 @@ struct Entry {
 }
 
 pub enum Msg {
+    // Micromassive!
+    StepForward(),
+    // TodosMVC
     Add,
     Edit(usize),
     Update(String),
@@ -95,11 +99,20 @@ impl Component for App {
             edit_value: "".into(),
         };
         let current_room = 1;
-        App { storage, state, current_room }
+        let current_click = 0;
+        App { storage, state, current_room, current_click }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
+            // Micromassive
+            Msg::StepForward() => {
+
+              info!("Stepping Forward!");
+              
+              self.current_click = self.current_click + 1;
+            }
+            // TodosMVC
             Msg::Add => {
                 let entry = Entry {
                     description: self.state.value.clone(),
@@ -178,7 +191,10 @@ impl Renderable<App> for App {
                         </button>
                     </footer>
                 </section>
-                <Controls: exits=room_exits(self.current_room).unwrap(),/>
+                <Controls:
+                  exits=room_exits(self.current_room).unwrap(), current_click=self.current_click,
+                  onsignal=|msg| msg,
+                />
                 <footer class="info">
                     <p>{ "Double-click to edit a todo" }</p>
                     <p>{ "Written by " }<a href="https://github.com/thomasmost/" target="_blank">{ "Thomas Moore" }</a></p>
