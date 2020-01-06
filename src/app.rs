@@ -105,6 +105,7 @@ impl Component for App {
         let current_room = 1;
         let current_click = 0;
 
+        // Replace this with a user-provided seed phrase; or generate a new one
         let seed: [u8; 32] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,];
         let mut rng: StdRng = SeedableRng::from_seed(seed);
 
