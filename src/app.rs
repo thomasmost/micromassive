@@ -6,7 +6,6 @@ use yew::events::IKeyboardEvent;
 use yew::format::Json;
 use yew::services::storage::{Area, StorageService};
 use yew::{html, Component, ComponentLink, Href, Html, Renderable, ShouldRender};
-use std::iter;
 use rand::{Rng, SeedableRng};
 use rand::rngs::StdRng;
 
@@ -83,6 +82,10 @@ fn room_exits(id: u8) -> Option<[u8; 3]> {
   }
 }
 
+fn integer_from_float(float: f64, max: u8) -> u8 {
+  return (float * (max as f64)) as u8;
+}
+
 impl Component for App {
     type Message = Msg;
     type Properties = ();
@@ -107,7 +110,7 @@ impl Component for App {
 
         // Replace this with a user-provided seed phrase; or generate a new one
         let seed: [u8; 32] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,];
-        let mut rng: StdRng = SeedableRng::from_seed(seed);
+        let rng: StdRng = SeedableRng::from_seed(seed);
 
         App { storage, state, current_room, current_click, rng }
     }
@@ -119,7 +122,7 @@ impl Component for App {
 
               info!("Stepping Forward!");
 
-              info!("{}", self.rng.gen::<f64>());
+              info!("{}", integer_from_float(self.rng.gen::<f64>(), 9));
 
               info!("Step Complete");
               self.current_click = self.current_click + 1;
