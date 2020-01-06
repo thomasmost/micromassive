@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Source+Sans+Pro&display=swap');
+
+
+body {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #eaecee;
+	color: #4d4d4d;
+	min-width: 230px;
+	max-width: 550px;
+	margin: 0 auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+.arrows {
+  font-weight: bold;
+}
+
+h1 {
+  color: purple;
+  font-size: 2em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}

@@ -1,0 +1,10 @@
+/target
+**/*.rs.bk
+Cargo.lock
+bin/
+pkg/
+dist/
+static/**/*.css
+netlify
+wasm-pack.log
+node_modules

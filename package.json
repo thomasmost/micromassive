@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start:dev": "webpack-dev-server --mode development",
+    "build:scss": "node-sass --include-path scss scss/index.scss static/index.css"
+  },
+  "devDependencies": {
+    "@wasm-tool/wasm-pack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "node-sass": "^4.13.0",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.7.2"
+  }
+}
