@@ -6,6 +6,9 @@ use yew::events::IKeyboardEvent;
 use yew::format::Json;
 use yew::services::storage::{Area, StorageService};
 use yew::{html, Component, ComponentLink, Href, Html, Renderable, ShouldRender};
+use std::iter;
+use rand::{Rng, SeedableRng};
+use rand::rngs::StdRng;
 
 // Components
 mod components;
@@ -18,7 +21,8 @@ pub struct App {
     storage: StorageService,
     state: State,
     current_room: u8,
-    current_click: u64
+    current_click: u64,
+    rng: StdRng,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -100,7 +104,11 @@ impl Component for App {
         };
         let current_room = 1;
         let current_click = 0;
-        App { storage, state, current_room, current_click }
+
+        let seed: [u8; 32] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,];
+        let mut rng: StdRng = SeedableRng::from_seed(seed);
+
+        App { storage, state, current_room, current_click, rng }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -109,7 +117,10 @@ impl Component for App {
             Msg::StepForward() => {
 
               info!("Stepping Forward!");
-              
+
+              info!("{}", self.rng.gen::<f64>());
+
+              info!("Step Complete");
               self.current_click = self.current_click + 1;
             }
             // TodosMVC
