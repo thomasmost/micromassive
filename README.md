@@ -18,6 +18,9 @@ npm run build
 npm run start:dev
 ```
 
+## Current Notes
+- Yew is running, but rendering a Frankenstein of todo components and Hunt-The-Wumpus controls as I learn the ins and outs
+- scss files aren't watched yet, probably this can be handled in the webpack config
 
 ## 🔋 Batteries Included
 
