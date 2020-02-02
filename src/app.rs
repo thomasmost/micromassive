@@ -13,6 +13,7 @@ use rand::rngs::StdRng;
 mod components;
 
 use self::components::controls::Controls;
+use self::components::SeedControl::SeedControl;
 
 const KEY: &'static str = "yew.micromassive.self";
 
@@ -43,9 +44,7 @@ pub enum Msg {
     // Micromassive!
     StepForward(),
     // TodosMVC
-    Add,
     Edit(usize),
-    Update(String),
     UpdateEdit(String),
     Remove(usize),
     SetFilter(Filter),
@@ -127,24 +126,10 @@ impl Component for App {
               info!("Step Complete");
               self.current_click = self.current_click + 1;
             }
-            // TodosMVC
-            Msg::Add => {
-                let entry = Entry {
-                    description: self.state.value.clone(),
-                    completed: false,
-                    editing: false,
-                };
-                self.state.entries.push(entry);
-                self.state.value = "".to_string();
-            }
             Msg::Edit(idx) => {
                 let edit_value = self.state.edit_value.clone();
                 self.state.complete_edit(idx, edit_value);
                 self.state.edit_value = "".to_string();
-            }
-            Msg::Update(val) => {
-                println!("Input: {}", val);
-                self.state.value = val;
             }
             Msg::UpdateEdit(val) => {
                 println!("Input: {}", val);
@@ -185,8 +170,8 @@ impl Renderable<App> for App {
                 <section class="todoapp">
                     <header class="header">
                         <h1>{ "Micromassive" }</h1>
-                        { self.view_input() }
                     </header>
+                    <SeedControl />
                     <section class="main">
                         <input class="toggle-all" type="checkbox" checked=self.state.is_all_completed() onclick=|_| Msg::ToggleAll />
                         <ul class="todo-list">
@@ -234,24 +219,6 @@ impl App {
         }
     }
 
-    fn view_input(&self) -> Html<App> {
-        html! {
-            // You can use standard Rust comments. One line:
-            // <li></li>
-            <input class="new-todo"
-                   placeholder="What needs to be done?"
-                   value=&self.state.value
-                   oninput=|e| Msg::Update(e.value)
-                   onkeypress=|e| {
-                       if e.key() == "Enter" { Msg::Add } else { Msg::Nope }
-                   } />
-            /* Or multiline:
-            <ul>
-                <li></li>
-            </ul>
-            */
-        }
-    }
 }
 
 fn view_entry((idx, entry): (usize, &Entry)) -> Html<App> {
