@@ -24,7 +24,7 @@ impl Default for Props {
 }
 
 pub struct State {
-   pub showLoadSeedControl: bool
+   pub show_load_seed_control: bool
 }
 
 impl Component for SeedControl {
@@ -33,7 +33,7 @@ impl Component for SeedControl {
 
    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
       SeedControl {
-         state: State { showLoadSeedControl: false }
+         state: State { show_load_seed_control: false }
       }
    }
 
@@ -44,8 +44,8 @@ impl Component for SeedControl {
             false
          }
 
-         Msg::EnableLoadSeed(fEnable) => {
-            self.state.showLoadSeedControl = fEnable;
+         Msg::EnableLoadSeed(f_enable) => {
+            self.state.show_load_seed_control = f_enable;
             true
          }
       }
@@ -63,13 +63,13 @@ impl Renderable<SeedControl> for SeedControl {
       html! {
          <div>
             <h3>{ "Seed" }</h3>
-            <input type="radio" name="SeedSrc" value="random" checked=!self.state.showLoadSeedControl
+            <input type="radio" name="SeedSrc" value="random" checked=!self.state.show_load_seed_control
                onclick=|_| Msg::EnableLoadSeed(false) />
                { "Use random seed." }<br />
-            <input type="radio" name="SeedSrc" value="load" checked=self.state.showLoadSeedControl
+            <input type="radio" name="SeedSrc" value="load" checked=self.state.show_load_seed_control
                onclick=|_| Msg::EnableLoadSeed(true) /> 
                { "Load seed from disk." }
-            { self.view_browse_control(self.state.showLoadSeedControl) }
+            { self.view_browse_control(self.state.show_load_seed_control) }
          </div>
         }
     }
@@ -77,9 +77,9 @@ impl Renderable<SeedControl> for SeedControl {
 
 impl SeedControl
 {
-   fn view_browse_control(&self, showBrowseControl: bool) -> Html<SeedControl>
+   fn view_browse_control(&self, show_browse_control: bool) -> Html<SeedControl>
    {
-      if showBrowseControl
+      if show_browse_control
          {
          html! 
             {
