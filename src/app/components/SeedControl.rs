@@ -41,13 +41,14 @@ impl Component for SeedControl {
       match msg
       {
          Msg::BrowseFileSystem => {
+            false
          }
 
          Msg::EnableLoadSeed(fEnable) => {
             self.state.showLoadSeedControl = fEnable;
+            true
          }
       }
-      true
    }
 
    fn change(&mut self, props: Self::Properties) -> ShouldRender {
