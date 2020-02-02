@@ -28,30 +28,31 @@ pub struct State {
 }
 
 impl Component for SeedControl {
-    type Message = Msg;
-    type Properties = Props;
+   type Message = Msg;
+   type Properties = Props;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        SeedControl {
-            state: State { showLoadSeedControl: false }
-        }
-    }
+   fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+      SeedControl {
+         state: State { showLoadSeedControl: false }
+      }
+   }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
-      match msg {
-          Msg::BrowseFileSystem => {
-          }
+   fn update(&mut self, msg: Self::Message) -> ShouldRender {
+      match msg
+      {
+         Msg::BrowseFileSystem => {
+         }
 
-          Msg::EnableLoadSeed(fEnable) => {
-             self.state.showLoadSeedControl = fEnable;
-          }
+         Msg::EnableLoadSeed(fEnable) => {
+            self.state.showLoadSeedControl = fEnable;
+         }
       }
       true
-    }
+   }
 
-    fn change(&mut self, props: Self::Properties) -> ShouldRender {
+   fn change(&mut self, props: Self::Properties) -> ShouldRender {
       true
-    }
+   }
 }
 
 impl Renderable<SeedControl> for SeedControl {
