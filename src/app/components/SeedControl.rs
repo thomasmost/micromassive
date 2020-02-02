@@ -1,3 +1,4 @@
+use log::*;
 use yew::prelude::*;
 
 pub struct SeedControl {
@@ -5,21 +6,18 @@ pub struct SeedControl {
 }
 
 pub enum Msg {
+  BrowseFileSystem,
   EnableLoadSeed(bool),
 }
 
 #[derive(PartialEq, Clone)]
 pub struct Props {
-    pub exits: [u8; 3],
-    pub current_click: u64,
     pub onsignal: Option<Callback<crate::app::Msg>>,
 }
 
 impl Default for Props {
     fn default() -> Self {
       Self {
-          exits: [0, 0, 0],
-          current_click: 0,
           onsignal: None
       }
     }
@@ -41,11 +39,14 @@ impl Component for SeedControl {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
       match msg {
+          Msg::BrowseFileSystem => {
+          }
+
           Msg::EnableLoadSeed(fEnable) => {
              self.state.showLoadSeedControl = fEnable;
           }
       }
-      false
+      true
     }
 
     fn change(&mut self, props: Self::Properties) -> ShouldRender {
@@ -60,14 +61,37 @@ impl Renderable<SeedControl> for SeedControl {
       html! {
          <div>
             <h3>{ "Seed" }</h3>
-            <input type="radio" name="SeedSrc" value="random"      
-               checked=!self.state.showLoadSeedControl
+            <input type="radio" name="SeedSrc" value="random" checked=!self.state.showLoadSeedControl
                onclick=|_| Msg::EnableLoadSeed(false) />
-               { "Use random seed." }
+               { "Use random seed." }<br />
             <input type="radio" name="SeedSrc" value="load" checked=self.state.showLoadSeedControl
                onclick=|_| Msg::EnableLoadSeed(true) /> 
                { "Load seed from disk." }
+            { self.view_browse_control(self.state.showLoadSeedControl) }
          </div>
         }
     }
+}
+
+impl SeedControl
+{
+   fn view_browse_control(&self, showBrowseControl: bool) -> Html<SeedControl>
+   {
+      if showBrowseControl
+         {
+         html! 
+            {
+            <button class="clear-completed" onclick=|_| Msg::BrowseFileSystem>
+               { "Browse" }
+            </button>
+            }
+         }
+      else
+         {
+         html! 
+            {
+            <div></div>
+            }
+         }
+   }
 }
